@@ -50,7 +50,8 @@
     "n3": "^1.2.0",
     "solid-auth-cli": "^1.0.8",
     "solid-auth-client": "^2.3.0",
-    "xmldom": "^0.1.27"
+    "xmldom": "^0.1.27",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -91,7 +92,7 @@
     "build:browser": "webpack --progress",
     "build:types": "tsc --emitDeclarationOnly -d --declarationDir lib --allowJs false",
     "doc": "rm -r doc ; typedoc",
-    "prepare": "npm run build && npm run build:types && npm run build:browser && npm run build:esm",
+    "prepare": "npm run snyk-protect && npm run build && npm run build:types && npm run build:browser && npm run build:esm",
     "start": "webpack-dev-server --https --port 4800",
     "test": "npm run test:unit && npm run test:serialize",
     "test:clean": "rimraf tests/serialize/,*",
@@ -112,7 +113,8 @@
     "test:serialize:13": "cd ./tests/serialize && node ./data.js -in=structures.n3 -format=application/n-triples -out=,structures.nt && node ./data.js -format=application/n-triples -in=,structures.nt -format=text/turtle -out=,structures.nt.ttl && node diff ,structures.nt.ttl t13-ref.ttl",
     "test:unit": "mocha --growl --require ./tests/babel-register.js tests/unit/**-test.*",
     "test:unit:egp": "mocha --require ./tests/babel-register.js tests/unit/fetcher-egp-test.js",
-    "test:unit:dev": "mocha --watch --growl --require ./tests/babel-register.js tests/unit/**-test.js"
+    "test:unit:dev": "mocha --watch --growl --require ./tests/babel-register.js tests/unit/**-test.js",
+    "snyk-protect": "snyk protect"
   },
   "files": [
     ".babelrc",
@@ -146,5 +148,6 @@
       "tabulator",
       "WebSocket"
     ]
-  }
+  },
+  "snyk": true
 }
